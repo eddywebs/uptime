@@ -30,7 +30,8 @@ var Check = new Schema({
   uptime      : { type: Number, default: 0 },
   downtime    : { type: Number, default: 0 },
   qos         : {},
-  pollerParams : Schema.Types.Mixed
+  pollerParams : Schema.Types.Mixed,
+  expectedResponse: String
 });
 Check.plugin(require('mongoose-lifecycle'));
 
@@ -42,8 +43,13 @@ Check.pre('remove', function(next) {
 
 Check.methods.setPollerParam = function(name, value) {
   if (!this.pollerParams) this.pollerParams = {};
+
+  console.log(name);
+  console.log('value to update is>>'+value);
+
   this.pollerParams[name] = value;
-  this.markModified('pollerParams');
+   console.log(this.pollerParams[name] );
+  this.markModified(' ');
 };
 
 Check.methods.getPollerParam = function(name) {
